@@ -3,62 +3,6 @@
 // ===================================
 
 // ===================================
-// Custom Cursor
-// ===================================
-
-function initCustomCursor() {
-    const cursorDot = document.querySelector('.cursor-dot');
-    const cursorOutline = document.querySelector('.cursor-outline');
-    
-    if (!cursorDot || !cursorOutline) return;
-    
-    // Only run on non-mobile devices
-    if (window.innerWidth <= 768) return;
-    
-    let mouseX = 0;
-    let mouseY = 0;
-    let outlineX = 0;
-    let outlineY = 0;
-    
-    // Track mouse position
-    document.addEventListener('mousemove', (e) => {
-        mouseX = e.clientX;
-        mouseY = e.clientY;
-        
-        // Update dot immediately
-        cursorDot.style.transform = `translate(${mouseX}px, ${mouseY}px)`;
-    });
-    
-    // Smooth follow for outline
-    function animateOutline() {
-        const distX = mouseX - outlineX;
-        const distY = mouseY - outlineY;
-        
-        outlineX += distX * 0.15;
-        outlineY += distY * 0.15;
-        
-        cursorOutline.style.transform = `translate(${outlineX}px, ${outlineY}px)`;
-        
-        requestAnimationFrame(animateOutline);
-    }
-    
-    animateOutline();
-    
-    // Add hover effect to interactive elements
-    const interactiveElements = document.querySelectorAll('a, button, .project-card');
-    
-    interactiveElements.forEach(el => {
-        el.addEventListener('mouseenter', () => {
-            cursorOutline.classList.add('hover');
-        });
-        
-        el.addEventListener('mouseleave', () => {
-            cursorOutline.classList.remove('hover');
-        });
-    });
-}
-
-// ===================================
 // Smooth Scroll
 // ===================================
 
@@ -444,7 +388,6 @@ function init() {
     console.log('🚀 Initializing ultra modernist resume site...');
     
     // Initialize all features
-    initCustomCursor();
     initSmoothScroll();
     initScrollAnimations();
     initParallax();
@@ -471,7 +414,6 @@ init();
 if (typeof module !== 'undefined' && module.exports) {
     module.exports = {
         init,
-        initCustomCursor,
         initScrollAnimations,
         initParallax
     };

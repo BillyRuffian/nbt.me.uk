@@ -89,61 +89,11 @@ body {
     overflow-x: hidden;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    cursor: none;
-}
-
-@media (max-width: 768px) {
-    body {
-        cursor: auto;
-    }
 }
 
 ::selection {
     background-color: var(--text-primary);
     color: var(--bg-primary);
-}
-
-/* ===================================
-   Custom Cursor
-   =================================== */
-
-.cursor-dot,
-.cursor-outline {
-    pointer-events: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    border-radius: 50%;
-    z-index: 10000;
-    transform: translate(-50%, -50%);
-    transition: opacity var(--transition-fast);
-}
-
-.cursor-dot {
-    width: 8px;
-    height: 8px;
-    background-color: var(--text-primary);
-    mix-blend-mode: difference;
-}
-
-.cursor-outline {
-    width: 40px;
-    height: 40px;
-    border: 2px solid var(--text-primary);
-    mix-blend-mode: difference;
-    transition: width var(--transition-base), height var(--transition-base), opacity var(--transition-fast);
-}
-
-.cursor-outline.hover {
-    width: 60px;
-    height: 60px;
-}
-
-@media (max-width: 768px) {
-    .cursor-dot,
-    .cursor-outline {
-        display: none;
-    }
 }
 
 /* ===================================
