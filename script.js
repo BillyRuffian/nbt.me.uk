@@ -107,6 +107,9 @@ function initHeroSubtitleFade() {
     // Wait for CSS animation to complete (600ms delay + 1000ms duration)
     setTimeout(() => {
         canFade = true;
+        // Remove animation so JavaScript can control opacity
+        subtitle.style.animation = 'none';
+        subtitle.style.opacity = '1';
     }, 1600);
     
     function updateFade() {
@@ -131,6 +134,11 @@ function initHeroSubtitleFade() {
     }
     
     window.addEventListener('scroll', requestTick);
+    
+    // Call once initially after animation completes
+    setTimeout(() => {
+        updateFade();
+    }, 1650);
 }
 
 // ===================================
