@@ -102,14 +102,26 @@ function initHeroSubtitleFade() {
     if (!subtitle) return;
     
     let ticking = false;
+    let initialized = false;
     
     function updateSubtitleFade() {
         const scrolled = window.pageYOffset;
         const fadeDistance = 300; // Distance in pixels to complete fade
         
-        // Calculate opacity: 1 at top, 0 after fadeDistance pixels
-        const opacity = Math.max(0, 1 - (scrolled / fadeDistance));
-        subtitle.style.opacity = opacity;
+        // Wait for initial animation to complete (1s animation + 0.6s delay = 1.6s)
+        if (!initialized) {
+            setTimeout(() => {
+                initialized = true;
+                subtitle.style.animation = 'none';
+            }, 1700);
+        }
+        
+        // Only apply scroll fade after initialization
+        if (initialized) {
+            // Calculate opacity: 1 at top, 0 after fadeDistance pixels
+            const opacity = Math.max(0, 1 - (scrolled / fadeDistance));
+            subtitle.style.opacity = opacity;
+        }
         
         ticking = false;
     }
