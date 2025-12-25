@@ -101,25 +101,27 @@ function initHeroSubtitleFade() {
     
     if (!subtitle) return;
     
+    let animationComplete = false;
     let ticking = false;
     
     // Wait for initial fade-in animation to complete before taking over with scroll
     setTimeout(() => {
-        subtitle.style.animation = 'none';
+        animationComplete = true;
         subtitle.style.transition = 'opacity 0.1s linear';
     }, 1700);
     
     function updateSubtitleFade() {
+        if (!animationComplete) {
+            ticking = false;
+            return;
+        }
+        
         const scrolled = window.pageYOffset;
         const fadeDistance = 300; // Distance in pixels to complete fade
         
         // Calculate opacity: 1 at top, 0 after fadeDistance pixels
         const opacity = Math.max(0, 1 - (scrolled / fadeDistance));
-        
-        // Only override after animation completes
-        if (subtitle.style.animation === 'none') {
-            subtitle.style.opacity = opacity;
-        }
+        subtitle.style.opacity = opacity;
         
         ticking = false;
     }
@@ -132,9 +134,6 @@ function initHeroSubtitleFade() {
     }
     
     window.addEventListener('scroll', requestTick);
-    
-    // Initial update
-    updateSubtitleFade();
 }
 
 // ===================================
