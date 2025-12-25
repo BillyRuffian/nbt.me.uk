@@ -93,6 +93,47 @@ function initParallax() {
 }
 
 // ===================================
+// Hero Subtitle Fade on Scroll
+// ===================================
+
+function initHeroSubtitleFade() {
+    const subtitle = document.querySelector('.hero-subtitle');
+    
+    if (!subtitle) return;
+    
+    let ticking = false;
+    let canFade = false;
+    
+    // Wait for CSS animation to complete (600ms delay + 1000ms duration)
+    setTimeout(() => {
+        canFade = true;
+    }, 1600);
+    
+    function updateFade() {
+        if (!canFade) {
+            ticking = false;
+            return;
+        }
+        
+        const scrolled = window.pageYOffset;
+        const fadeDistance = 300;
+        const opacity = Math.max(0, 1 - (scrolled / fadeDistance));
+        
+        subtitle.style.opacity = opacity;
+        ticking = false;
+    }
+    
+    function requestTick() {
+        if (!ticking) {
+            requestAnimationFrame(updateFade);
+            ticking = true;
+        }
+    }
+    
+    window.addEventListener('scroll', requestTick);
+}
+
+// ===================================
 // Navigation Background on Scroll
 // ===================================
 
@@ -391,7 +432,7 @@ function init() {
     initSmoothScroll();
     initScrollAnimations();
     initParallax();
-    // initHeroSubtitleFade();
+    initHeroSubtitleFade();
     initNavScroll();
     initProjectCardTilt();
     initTextReveal();
