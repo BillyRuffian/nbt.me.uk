@@ -434,7 +434,7 @@ function init() {
     initSmoothScroll();
     initScrollAnimations();
     initParallax();
-    initHeroSubtitleFade();
+    // initHeroSubtitleFade();
     initNavScroll();
     initProjectCardTilt();
     initTextReveal();
