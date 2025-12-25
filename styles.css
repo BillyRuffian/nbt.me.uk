@@ -246,8 +246,9 @@ body {
     letter-spacing: 0.02em;
     max-width: 600px;
     padding-left: 4px;
-    opacity: 0;
+    opacity: 1;
     animation: fadeIn 1s cubic-bezier(0.4, 0, 0.2, 1) 0.6s forwards;
+    transition: opacity 0.1s linear;
 }
 
 @keyframes fadeIn {

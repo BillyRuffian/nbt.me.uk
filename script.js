@@ -1,4 +1,4 @@
-// ===================================
+h// ===================================
 // Ultra Modernist Resume Site - JavaScript
 // ===================================
 
@@ -90,6 +90,41 @@ function initParallax() {
     
     // Initial update
     updateParallax();
+}
+
+// ===================================
+// Hero Subtitle Fade Out on Scroll
+// ===================================
+
+function initHeroSubtitleFade() {
+    const subtitle = document.querySelector('.hero-subtitle');
+    
+    if (!subtitle) return;
+    
+    let ticking = false;
+    
+    function updateSubtitleFade() {
+        const scrolled = window.pageYOffset;
+        const fadeDistance = 300; // Distance in pixels to complete fade
+        
+        // Calculate opacity: 1 at top, 0 after fadeDistance pixels
+        const opacity = Math.max(0, 1 - (scrolled / fadeDistance));
+        subtitle.style.opacity = opacity;
+        
+        ticking = false;
+    }
+    
+    function requestTick() {
+        if (!ticking) {
+            requestAnimationFrame(updateSubtitleFade);
+            ticking = true;
+        }
+    }
+    
+    window.addEventListener('scroll', requestTick);
+    
+    // Initial update
+    updateSubtitleFade();
 }
 
 // ===================================
@@ -391,6 +426,7 @@ function init() {
     initSmoothScroll();
     initScrollAnimations();
     initParallax();
+    initHeroSubtitleFade();
     initNavScroll();
     initProjectCardTilt();
     initTextReveal();
