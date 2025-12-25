@@ -99,41 +99,40 @@ function initParallax() {
 function initHeroSubtitleFade() {
     const subtitle = document.querySelector('.hero-subtitle');
     
-    if (!subtitle) return;
+    if (!subtitle) {
+        console.log('Hero subtitle not found');
+        return;
+    }
     
-    let animationComplete = false;
+    console.log('Initializing hero subtitle fade');
+    
     let ticking = false;
     
-    // Wait for initial fade-in animation to complete before taking over with scroll
+    // Wait for initial fade-in animation to complete (600ms delay + 1000ms animation)
     setTimeout(() => {
-        animationComplete = true;
-        subtitle.style.transition = 'opacity 0.1s linear';
-    }, 1700);
-    
-    function updateSubtitleFade() {
-        if (!animationComplete) {
+        console.log('Hero subtitle animation complete, enabling scroll fade');
+        
+        function updateSubtitleFade() {
+            const scrolled = window.pageYOffset;
+            const fadeDistance = 300; // Distance in pixels to complete fade
+            
+            // Calculate opacity: 1 at top, 0 after fadeDistance pixels
+            const opacity = Math.max(0, 1 - (scrolled / fadeDistance));
+            subtitle.style.opacity = opacity;
+            
             ticking = false;
-            return;
         }
         
-        const scrolled = window.pageYOffset;
-        const fadeDistance = 300; // Distance in pixels to complete fade
-        
-        // Calculate opacity: 1 at top, 0 after fadeDistance pixels
-        const opacity = Math.max(0, 1 - (scrolled / fadeDistance));
-        subtitle.style.opacity = opacity;
-        
-        ticking = false;
-    }
-    
-    function requestTick() {
-        if (!ticking) {
-            requestAnimationFrame(updateSubtitleFade);
-            ticking = true;
+        function requestTick() {
+            if (!ticking) {
+                requestAnimationFrame(updateSubtitleFade);
+                ticking = true;
+            }
         }
-    }
-    
-    window.addEventListener('scroll', requestTick);
+        
+        window.addEventListener('scroll', requestTick);
+        updateSubtitleFade(); // Set initial opacity based on current scroll
+    }, 1600);
 }
 
 // ===================================
